@@ -3,54 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrologia - Ramalan & Kecocokan Zodiak</title>
+    <title>Astrologia v2 - Ramalan, Karir & Kecocokan</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme"> <div class="theme-toggle" onclick="toggleTheme()" title="Ubah Tema">
+        <span id="theme-icon">☀️</span>
+    </div>
 
     <div class="container">
         <header>
             <h1>ASTROLOGIA</h1>
-            <p>Ungkap Rahasia Bintang & Kecocokan Jiwamu</p>
+            <p>Ungkap Rahasia Bintang, Karir & Kecocokan Jiwamu</p>
         </header>
 
-        <div class="form-group">
-            <label for="birthdate">Tanggal Lahir Kamu</label>
-            <input type="date" id="birthdate" required>
-        </div>
+        <div class="form-section">
+            <div class="form-group">
+                <label for="your-birthdate">Tanggal Lahir Kamu</label>
+                <input type="date" id="your-birthdate" required>
+            </div>
 
-        <div class="form-group">
-            <label for="partner-zodiac">Cek Kecocokan Dengan Zodiak Dia (Opsional)</label>
-            <select id="partner-zodiac">
-                <option value="">-- Pilih Zodiak Dia --</option>
-                <option value="Aries">Aries</option>
-                <option value="Taurus">Taurus</option>
-                <option value="Gemini">Gemini</option>
-                <option value="Cancer">Cancer</option>
-                <option value="Leo">Leo</option>
-                <option value="Virgo">Virgo</option>
-                <option value="Libra">Libra</option>
-                <option value="Scorpio">Scorpio</option>
-                <option value="Sagittarius">Sagitarius</option>
-                <option value="Capricorn">Capricorn</option>
-                <option value="Aquarius">Aquarius</option>
-                <option value="Pisces">Pisces</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="partner-birthdate">Tanggal Lahir Dia (Opsional untuk Cek Kecocokan)</label>
+                <input type="date" id="partner-birthdate">
+            </div>
 
-        <button onclick="revealDestiny()">Ramal Sekarang</button>
+            <button onclick="revealDestiny()">Ramal & Analisis Sekarang</button>
+        </div>
 
         <div class="result-box" id="resultBox">
             <div class="zodiac-header">
                 <div class="zodiac-icon" id="zodiacIcon">🔮</div>
                 <div class="zodiac-info">
                     <h2 id="zodiacName">Zodiak Kamu</h2>
-                    <p id="zodiacDateRange">Rentang Tanggal</p>
+                    <p id="zodiacDateRange">Elemen & Karakter</p>
                 </div>
             </div>
 
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab(event, 'ramalan')">Ramalan</button>
+                <button class="tab-btn" onclick="switchTab(event, 'karir')">Karir</button>
                 <button class="tab-btn" onclick="switchTab(event, 'kecocokan')">Kecocokan</button>
             </div>
 
@@ -58,9 +49,27 @@
                 <p id="forecastText">Mengambil data ramalan bintangmu...</p>
             </div>
 
+            <div id="karir" class="tab-content">
+                <div class="career-box">
+                    <h3 style="margin-bottom: 8px;">Pekerjaan yang Cocok:</h3>
+                    <p id="careerList" style="font-weight: 600; color: var(--accent-cyan); margin-bottom: 12px;"></p>
+                    <p id="careerDesc"></p>
+                </div>
+            </div>
+
             <div id="kecocokan" class="tab-content">
-                <p id="partnerMatchText" style="margin-bottom: 15px; font-weight: 500; color: var(--accent-cyan);"></p>
-                <p style="font-size: 0.85rem; color:#aaa; margin-bottom: 10px;">Zodiak yang paling cocok secara umum:</p>
+                <div id="partnerAnalysisBox" class="partner-analysis" style="display: none;">
+                    <div class="partner-header">
+                        <div class="partner-sign" id="partnerIcon">❤️</div>
+                        <div>
+                            <h4 id="partnerName">Zodiak Dia</h4>
+                            <p style="font-size: 0.8rem; opacity: 0.8;">Berdasarkan tanggal lahir yang diinput</p>
+                        </div>
+                    </div>
+                    <p id="partnerMatchText"></p>
+                </div>
+                
+                <p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; margin-top: 15px;">Zodiak yang Paling Cocok Secara Umum:</p>
                 <div class="compatibility-list" id="generalCompList">
                     </div>
             </div>
