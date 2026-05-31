@@ -1,10 +1,27 @@
 :root {
+    /* Variabel Warna Tema Gelap (Awal) */
     --bg-gradient: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #060214 100%);
     --card-bg: rgba(255, 255, 255, 0.05);
     --card-border: rgba(255, 255, 255, 0.1);
     --accent-glow: #7952b3;
     --accent-cyan: #4deeea;
-    --text-color: #f1f1f1;
+    --text-main: #f1f1f1;
+    --text-muted: #aaaaaa;
+    --input-bg: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-theme {
+    /* Penyesuaian Otomatis Variabel Warna Tema Terang (Kontras Tinggi) */
+    --bg-gradient: linear-gradient(135deg, #f5f4fa 0%, #e8e5f5 50%, #dcd7f0 100%);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(121, 82, 179, 0.25);
+    --accent-glow: #633da3;
+    --accent-cyan: #128c9e;
+    --text-main: #1b162e;
+    --text-muted: #534e66;
+    --input-bg: rgba(121, 82, 179, 0.06);
+    --shadow-color: rgba(121, 82, 179, 0.15);
 }
 
 * {
@@ -12,50 +29,82 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Transisi halus saat berganti tema */
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body {
     background: var(--bg-gradient);
-    color: var(--text-color);
+    color: var(--text-main);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    position: relative;
+}
+
+/* Desain Tombol Floating Toggle Theme */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.08);
 }
 
 .container {
     width: 100%;
     max-width: 600px;
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--card-border);
     border-radius: 24px;
     padding: 30px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, var(--accent-cyan));
+    background: linear-gradient(45deg, var(--text-main), var(--accent-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 5px;
 }
 
 header p {
-    color: #aaa;
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.form-section {
+    padding: 5px 0;
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 label {
@@ -65,23 +114,18 @@ label {
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--accent-cyan);
+    font-weight: 600;
 }
 
-input[type="date"], select {
+input[type="date"] {
     width: 100%;
     padding: 12px 15px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
-    color: #fff;
+    color: var(--text-main);
     font-size: 1rem;
     outline: none;
-    transition: all 0.3s ease;
-}
-
-input[type="date"]:focus, select:focus {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 10px rgba(77, 238, 234, 0.2);
 }
 
 button {
@@ -94,26 +138,25 @@ button {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(121, 82, 179, 0.4);
+    box-shadow: 0 6px 20px rgba(121, 82, 179, 0.35);
 }
 
-/* --- RESULT SECTION --- */
+/* --- TAMPILAN OUTPUT HASIL --- */
 .result-box {
-    margin-top: 30px;
+    margin-top: 25px;
     padding-top: 25px;
     border-top: 1px solid var(--card-border);
-    display: none; /* Tersembunyi default di awal */
-    animation: fadeIn 0.6s ease forwards;
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -126,75 +169,97 @@ button:hover {
 
 .zodiac-icon {
     font-size: 3rem;
-    background: rgba(255, 255, 255, 0.1);
-    width: 70px;
-    height: 70px;
+    background: var(--input-bg);
+    width: 75px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 1px solid var(--accent-cyan);
+    border: 2px solid var(--accent-cyan);
 }
 
 .zodiac-info h2 {
-    font-size: 1.5rem;
-    color: #fff;
+    font-size: 1.6rem;
+    color: var(--text-main);
 }
 
 .zodiac-info p {
-    font-size: 0.85rem;
-    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
+/* SISTEM KONTROL TAB */
 .tabs {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 5px;
+    margin-bottom: 20px;
     border-bottom: 1px solid var(--card-border);
-    padding-bottom: 10px;
 }
 
 .tab-btn {
     background: none;
     border: none;
-    color: #888;
-    padding: 5px 10px;
+    color: var(--text-muted);
+    padding: 8px 16px;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: normal;
+    font-size: 0.95rem;
+    font-weight: 500;
     width: auto;
-    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
 }
 
 .tab-btn.active {
-    color: #fff;
-    border-bottom: 2px solid var(--accent-cyan);
-    border-radius: 0;
-    background: none;
-    box-shadow: none;
-    transform: none;
+    color: var(--accent-cyan);
+    border-bottom: 3px solid var(--accent-cyan);
+    font-weight: bold;
 }
 
 .tab-content {
     display: none;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.6;
-    color: #ddd;
+    color: var(--text-main);
 }
 
 .tab-content.active {
     display: block;
 }
 
+/* SPESIFIKASI TAB KONTEN */
+.career-box, .partner-analysis {
+    background: var(--input-bg);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+}
+
+.partner-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 8px;
+}
+
+.partner-sign {
+    font-size: 1.8rem;
+}
+
 .compatibility-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    margin-top: 10px;
 }
 
 .comp-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     padding: 12px;
     border-radius: 10px;
@@ -203,16 +268,16 @@ button:hover {
 
 .comp-item span {
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 4px;
 }
 
 .comp-item strong {
-    font-size: 0.9rem;
-    color: #fff;
+    font-size: 1rem;
+    color: var(--text-main);
 }
 
 .comp-item p {
-    font-size: 0.75rem;
-    color: #aaa;
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
